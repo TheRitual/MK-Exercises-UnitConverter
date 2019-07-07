@@ -5,11 +5,11 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
         String[] bargs = new String[3];
-        bargs[0] = "sfd";
-        bargs[1] = "kg";
-        bargs[2] = "lb";
+        bargs[0] = "15";
+        bargs[1] = "ft";
+        bargs[2] = "km";
         if(bargs.length == 3) {
-            System.out.println(Convert.units("ss100","2","3"));
+            System.out.println(Convert.unitsString(bargs[0],bargs[1],bargs[2]));
         } else {
             System.out.println("Invalid parameters. USAGE :::" +
                     "\n\t\t\"convert [value] [unitA] [unitB]\"" +

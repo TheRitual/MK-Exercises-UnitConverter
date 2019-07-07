@@ -14,4 +14,8 @@ final public class UnitPair {
     public String getUnitB() {
         return unitB;
     }
+
+    public String toString() {
+        return unitA + "~" + unitB;
+    }
 }
