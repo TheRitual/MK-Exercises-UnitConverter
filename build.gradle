@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.kodilla'
-version '1.0-SNAPSHOT'
+version '1.0'
 
 sourceCompatibility = 1.8
 
@@ -17,8 +17,13 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.jscience/jscience
     compile group: 'org.jscience', name: 'jscience', version: '4.3.1'
+    compile 'javax.measure:unit-api:0.9'
 
+    runtime group: 'org.jscience', name: 'jscience', version: '4.3.1'
+
+    implementation group: 'org.jscience', name: 'jscience', version: '4.3.1'
 }
+
 
 jar {
     manifest {
@@ -26,6 +31,18 @@ jar {
                 'Main-Class': "com.kodilla.Main"
         )
     }
+
+}
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Converter Jar',
+                'Implementation-Version': version,
+                'Main-Class': "com.kodilla.Main"
+    }
+    baseName = project.name + '-withLibs'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }
 
 mainClassName = "com.kodilla.Main"

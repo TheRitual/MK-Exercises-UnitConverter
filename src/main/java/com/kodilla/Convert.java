@@ -3,6 +3,7 @@ import javax.measure.converter.MultiplyConverter;
 
 public class Convert {
     public static double units(String value, String unitA, String unitB) {
+
         unitA = unitA.toLowerCase();
         unitB = unitB.toLowerCase();
         Double val;
@@ -52,7 +53,7 @@ public class Convert {
             case "km~in" : return units(Double.toString(val*1000), "m","in");
 
             case "ft~km" : return units(val.toString(), "ft","m")/1000;
-            case "km~fn" : return units(Double.toString(val*1000), "m","ft");
+            case "km~ft" : return units(Double.toString(val*1000), "m","ft");
 
             case "ft~cm" : return units(val.toString(), "ft","m")*100;
             case "cm~ft" : return units(Double.toString(val/100), "m","ft");
@@ -64,12 +65,16 @@ public class Convert {
             System.out.println("\tUnknown Unit");
             return 0;
         } else {
-            MultiplyConverter conv = new MultiplyConverter(factor);
-
-            if (!inverse) {
-                return conv.convert(val);
-            } else {
-                return conv.inverse().convert(val);
+            try {
+                MultiplyConverter conv = new MultiplyConverter(factor);
+                if (!inverse) {
+                    return conv.convert(val);
+                } else {
+                    return conv.inverse().convert(val);
+                }
+            } catch (NoClassDefFoundError e) {
+                System.out.println(e);
+                return 0;
             }
         }
     }
